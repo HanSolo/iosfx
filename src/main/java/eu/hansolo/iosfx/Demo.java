@@ -83,7 +83,7 @@ public class Demo extends Application {
         Scene scene = new Scene(pane);
         //scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
-        stage.setTitle("Title");
+        stage.setTitle("iOS FX");
         stage.setScene(scene);
         stage.show();
     }
