@@ -1,0 +1,31 @@
+.ios-entry {
+    -title-fill      : rgb(0, 0, 0);
+    -subtitle-fill   : rgb(216, 216, 216);
+    -action-fill     : rgb(142, 142, 147);
+    -delete-fill     : rgb(255, 59, 48);
+    -button-text-fill: rgb( 255, 255, 255);
+}
+
+.ios-entry .title {
+    -fx-font-size: 17px;
+    -fx-text-fill: -title-fill;
+}
+
+.ios-entry .subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: -subtitle-fill;
+}
+
+.ios-entry .action {
+    -fx-text-fill       : -button-text-fill;
+    -fx-alignment       : center;
+    -fx-font-size       : 18px;
+    -fx-background-color: -action-fill;
+}
+
+.ios-entry .delete {
+    -fx-text-fill       : -button-text-fill;
+    -fx-alignment       : center;
+    -fx-font-size       : 18px;
+    -fx-background-color: -delete-fill;
+}

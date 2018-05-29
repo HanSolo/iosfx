@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2018 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+/********** iOS General *********/
+.ios {
+    -RED        : rgb(255, 59, 48);
+    -ORANGE     : rgb(255, 149, 0);
+    -YELLOW     : rgb(255, 204, 0);
+    -GREEN      : rgb(76, 217, 100);
+    -TEAL-BLUE  : rgb(90, 200, 250);
+    -BLUE       : rgb(0, 122, 255);
+    -PURPLE     : rgb(88, 86, 214);
+    -PINK       : rgb(255, 45, 85);
+    -WHITE      : rgb(255, 255, 255);
+    -CUSTOM-GRAY: rgb(229, 239, 244);
+    -LIGHT-GRAY : rgb(229 ,229, 234);
+    -LIGHT-GRAY2: rgb(209, 209, 214);
+    -MID-GRAY   : rgb(199, 199, 204);
+    -GRAY       : rgb(142, 142, 147);
+    -DARK-GRAY  : rgb(102, 102, 102);
+    -BLACK      : rgb(0, 0, 0);
+}

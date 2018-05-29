@@ -1,0 +1,100 @@
+/*
+ * Copyright (c) 2018 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.ios-multi-button {
+    -circle-color   : rgb(199, 199, 204);
+    -add-color      : rgb( 75, 216,  99);
+    -delete-color   : rgb(255,  59,  48);
+    -symbol-color   : rgb(255, 255, 255);
+    -selected-color : rgb(  0, 122, 255);
+}
+
+.ios-multi-button .circle {
+    -fx-stroke: -circle-color;
+    -fx-fill  : transparent;
+}
+.ios-multi-button .icon {
+    -fx-fill: transparent;
+}
+
+.ios-multi-button:checkbox:selected .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : -selected-color;
+}
+.ios-multi-button:checkbox:selected .icon {
+    -fx-background-color: -symbol-color;
+    -fx-rotate          : 225;
+    -fx-translate-y     : -2px;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M7,6L12.436,5.993L12.437,7.038L8,7L8,18L7,18L7,6Z";
+}
+
+.ios-multi-button:add .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : -add-color;
+}
+.ios-multi-button:add .icon {
+    -fx-background-color: -symbol-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M6,10.5L10.5,10.5L10.5,6L11.5,6L11.5,10.5L16,10.5L16,11.5L11.5,11.5L11.5,16L10.5,16L10.5,11.5L6,11.5L6,10.5Z";
+}
+
+.ios-multi-button:delete .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : -delete-color;
+}
+.ios-multi-button:delete .icon {
+    -fx-background-color: -symbol-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M5.5,5.5L16.5,5.5L16.5,7L5.5,7L5.5,5.5Z";
+}
+
+.ios-multi-button:dot .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : transparent;
+}
+.ios-multi-button:dot .icon {
+    -fx-background-color: -selected-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M3,11a8,8 0 1,0 16,0a8,8 0 1,0 -16,0Z";
+}
+
+.ios-multi-button:smalldot .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : transparent;
+}
+.ios-multi-button:smalldot .icon {
+    -fx-background-color: -selected-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M7,11a4,4 0 1,0 8,0a4,4 0 1,0 -8,0";
+}
+
+.ios-multi-button:checkmark .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : transparent;
+}
+.ios-multi-button:checkmark .icon {
+    -fx-background-color: transparent;
+    -fx-rotate          : 45;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M13.753,3.867L11.633,3.868L11.278,14.122L7.743,14.12L7.743,16.24L13.402,16.245L13.753,3.867Z";
+}
+.ios-multi-button:checkmark:selected .icon {
+    -fx-background-color: -selected-color;
+    -fx-rotate          : 45;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M13.753,3.867L11.633,3.868L11.278,14.122L7.743,14.12L7.743,16.24L13.402,16.245L13.753,3.867Z";
+}
