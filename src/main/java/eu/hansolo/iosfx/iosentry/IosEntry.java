@@ -35,6 +35,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -55,19 +56,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 @DefaultProperty("children")
 public class IosEntry extends Region {
-    private static final double   PREFERRED_WIDTH  = 375;
-    private static final double   PREFERRED_HEIGHT = 44;
-    private static final double   MINIMUM_WIDTH    = 100;
-    private static final double   MINIMUM_HEIGHT   = 10;
-    private static final double   MAXIMUM_WIDTH    = 1024;
-    private static final double   MAXIMUM_HEIGHT   = 1024;
-    private static final double   BUTTON_WIDTH     = 82;
-    private        final IosEvent DELETE_ENTRY_EVT = new IosEvent(IosEntry.this, IosEventType.DELETE_ENTRY);
-    private              double   size;
-    private              double   width;
-    private              double   height;
-    private              Label    titleLabel;
-    private              Label    subtitleLabel;
+    private static final double                   PREFERRED_WIDTH  = 375;
+    private static final double                   PREFERRED_HEIGHT = 44;
+    private static final double                   MINIMUM_WIDTH    = 100;
+    private static final double                   MINIMUM_HEIGHT   = 10;
+    private static final double                   MAXIMUM_WIDTH    = 2048;
+    private static final double                   MAXIMUM_HEIGHT   = 1024;
+    private static final double                   BUTTON_WIDTH     = 82;
+    private        final IosEvent                 DELETE_ENTRY_EVT = new IosEvent(IosEntry.this, IosEventType.DELETE_ENTRY);
+    private              double                   size;
+    private              double                   width;
+    private              double                   height;
+    private              Label                    titleLabel;
+    private              Label                    subtitleLabel;
 
     private              HBox                     pane;
 
@@ -86,7 +87,9 @@ public class IosEntry extends Region {
 
     private              boolean                  _hasAction;
     private              BooleanProperty          hasAction;
-    
+
+    private              boolean                  preDelete;
+
     private              Timeline                 timeline;
     private              EventHandler<MouseEvent> draggedHandler;
     private              double                   draggedStartX;
@@ -107,6 +110,7 @@ public class IosEntry extends Region {
         rightNode      = RIGHT_NODE;
         _hasDelete     = true;
         _hasAction     = true;
+        preDelete      = false;
         timeline       = new Timeline();
         draggedHandler = e -> {
             final EventType<? extends MouseEvent> TYPE = e.getEventType();
@@ -119,7 +123,12 @@ public class IosEntry extends Region {
                 draggedStartX = x;
             } else if (TYPE.equals(MouseEvent.MOUSE_DRAGGED)) {
                 double delta = (draggedStartX - x) * -1;
-                if (Double.compare(translateX, 0) == 0 && delta > 0 ||
+
+                if (hasDelete && !preDelete && delta < -pane.getPrefWidth() * 0.5) {
+                    preDelete = true;
+                    animateToDirectDelete();
+                    return;
+                } else if (Double.compare(translateX, 0) == 0 && delta > 0 ||
                     Double.compare(x, draggedStartX) == 0 ||
                     (hasAction && hasDelete && Double.compare(translateX, -2 * BUTTON_WIDTH) == 0 && delta < 0) ||
                     ((hasAction && !hasDelete) && Double.compare(translateX, -BUTTON_WIDTH) == 0 && delta < 0) ||
@@ -127,7 +136,7 @@ public class IosEntry extends Region {
                     return;
                 }
 
-                if (getHasAction() && getHasDelete()) {
+                if (hasAction && hasDelete) {
                     if (delta > 0) {
                         setTranslateX(-2 * BUTTON_WIDTH + Helper.clamp(0, 2 * BUTTON_WIDTH, delta));
                         action.setTranslateX(Helper.clamp(0, BUTTON_WIDTH, delta * 0.75));
@@ -136,6 +145,7 @@ public class IosEntry extends Region {
                         action.setTranslateX(Helper.clamp(0, BUTTON_WIDTH, BUTTON_WIDTH + delta * 0.75));
                     }
                 } else if (hasAction || hasDelete) {
+                    if (preDelete) { return; }
                     if (delta > 0) {
                         setTranslateX(-BUTTON_WIDTH + Helper.clamp(0, BUTTON_WIDTH, delta));
                     } else {
@@ -143,7 +153,10 @@ public class IosEntry extends Region {
                     }
                 }
             } else if (TYPE.equals(MouseEvent.MOUSE_RELEASED)) {
-                if (Double.compare(x, draggedStartX) == 0 ||
+                if (preDelete) {
+                    fireIosEvent(DELETE_ENTRY_EVT);
+                    return;
+                } else if (Double.compare(x, draggedStartX) == 0 ||
                     hasAction && hasDelete && Double.compare(translateX, -2 * BUTTON_WIDTH) == 0 ||
                     (hasAction || hasDelete) && Double.compare(translateX, -BUTTON_WIDTH) == 0) {
                     return;
@@ -192,12 +205,14 @@ public class IosEntry extends Region {
         action.setFont(Fonts.robotoRegular(18));
         action.setManaged(false);
         action.setVisible(false);
+        action.setPrefSize(BUTTON_WIDTH, PREFERRED_HEIGHT);
 
         delete = new Label("Delete");
         delete.getStyleClass().add("delete");
         delete.setFont(Fonts.robotoRegular(18));
         delete.setManaged(false);
         delete.setVisible(false);
+        delete.setPrefSize(BUTTON_WIDTH, PREFERRED_HEIGHT);
 
         pane = new HBox(15);
 
@@ -392,7 +407,7 @@ public class IosEntry extends Region {
 
     private void animateToShowButtons(final boolean TWO_BUTTONS) {
         KeyValue kvTranslateXStart       = new KeyValue(translateXProperty(), getTranslateX(), Interpolator.EASE_BOTH);
-        KeyValue kvTranslateXEnd         = new KeyValue(translateXProperty(), TWO_BUTTONS ? -164 : -82, Interpolator.EASE_BOTH);
+        KeyValue kvTranslateXEnd         = new KeyValue(translateXProperty(), TWO_BUTTONS ? (-2 * BUTTON_WIDTH) : -BUTTON_WIDTH, Interpolator.EASE_BOTH);
         KeyValue kvActionTranslateXStart = new KeyValue(action.translateXProperty(), action.getTranslateX(), Interpolator.EASE_BOTH);
         KeyValue kvActionTranslateXEnd   = new KeyValue(action.translateXProperty(), 0, Interpolator.EASE_BOTH);
 
@@ -412,6 +427,23 @@ public class IosEntry extends Region {
         KeyFrame kf1 = new KeyFrame(Duration.millis(Helper.ANIMATION_DURATION), kvTranslateXEnd, kvActionTranslateXEnd);
 
         timeline.getKeyFrames().setAll(kf0, kf1);
+        timeline.play();
+    }
+
+    private void animateToDirectDelete() {
+        pane.setMaxWidth(PREFERRED_WIDTH + BUTTON_WIDTH + BUTTON_WIDTH);
+        pane.setPrefWidth(PREFERRED_WIDTH + BUTTON_WIDTH + BUTTON_WIDTH);
+        setTranslateX(-BUTTON_WIDTH - BUTTON_WIDTH);
+
+        double targetWidth = pane.getPrefWidth();
+
+        KeyValue kvDeleteWidthStart = new KeyValue(delete.prefWidthProperty(), delete.getPrefWidth(), Interpolator.EASE_BOTH);
+        KeyValue kvDeleteWidthEnd   = new KeyValue(delete.prefWidthProperty(), targetWidth, Interpolator.EASE_BOTH);
+
+        KeyFrame kf0 = new KeyFrame(Duration.ZERO, kvDeleteWidthStart);
+        KeyFrame kf1 = new KeyFrame(Duration.millis(Helper.ANIMATION_DURATION), kvDeleteWidthEnd);
+        timeline.getKeyFrames().setAll(kf0, kf1);
+
         timeline.play();
     }
 
@@ -445,9 +477,9 @@ public class IosEntry extends Region {
 
             pane.relocate((getWidth() - width) * 0.5, (getHeight() - height) * 0.5);
 
-            action.setPrefSize(BUTTON_WIDTH, PREFERRED_HEIGHT);
+            //action.setPrefSize(BUTTON_WIDTH, PREFERRED_HEIGHT);
 
-            delete.setPrefSize(BUTTON_WIDTH, PREFERRED_HEIGHT);
+            //delete.setPrefSize(BUTTON_WIDTH, PREFERRED_HEIGHT);
 
             redraw();
         }
