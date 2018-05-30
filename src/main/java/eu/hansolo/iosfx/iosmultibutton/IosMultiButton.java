@@ -58,7 +58,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 @DefaultProperty("children")
 public class IosMultiButton extends Region {
-    public               enum                                     Type { CHECKBOX, ADD, DELETE, CHECK_MARK, DOT, SMALL_DOT }
+    public               enum                                     Type { CHECKBOX, ADD, DELETE, CHECK_MARK, DOT, SMALL_DOT, INFO, PLUS }
     public  static final Color                                    DEFAULT_SELECTED_COLOR  = Color.rgb(0, 122, 255);
     private static final double                                   PREFERRED_WIDTH         = 22;
     private static final double                                   PREFERRED_HEIGHT        = 22;
@@ -77,24 +77,26 @@ public class IosMultiButton extends Region {
     private static final PseudoClass                              CHECK_MARK_PSEUDO_CLASS = PseudoClass.getPseudoClass("checkmark");
     private static final PseudoClass                              DOT_PSEUDO_CLASS        = PseudoClass.getPseudoClass("dot");
     private static final PseudoClass                              SMALL_DOT_PSEUDO_CLASS  = PseudoClass.getPseudoClass("smalldot");
+    private static final PseudoClass                              INFO_PSEUDO_CLASS       = PseudoClass.getPseudoClass("info");
+    private static final PseudoClass                              PLUS_PSEUDO_CLASS       = PseudoClass.getPseudoClass("plus");
     private static final PseudoClass                              SELECTED_PSEUDO_CLASS   = PseudoClass.getPseudoClass("selected");
     private        final StyleableProperty<Color>                 selectedColor;
     private              double                                   size;
     private              double                                   width;
     private              double                                   height;
-    private              Circle                    circle;
-    private              Region                    icon;
-    private              Pane                      pane;
-    private              Type                      _type;
-    private              ObjectProperty<Type>      type;
-    private              boolean                   _selected;
-    private              BooleanProperty           selected;
-    private              List<IosEventListener>    listeners;
-    private              BooleanBinding            showing;
-    private              ChangeListener<Boolean>   showingListener;
-    private              EventHandler<MouseEvent>  pressedHandler;
-    private              EventHandler<MouseEvent>  releasedHandler;
-    private              HashMap<String, Property> settings;
+    private              Circle                                   circle;
+    private              Region                                   icon;
+    private              Pane                                     pane;
+    private              Type                                     _type;
+    private              ObjectProperty<Type>                     type;
+    private              boolean                                  _selected;
+    private              BooleanProperty                          selected;
+    private              List<IosEventListener>                   listeners;
+    private              BooleanBinding                           showing;
+    private              ChangeListener<Boolean>                  showingListener;
+    private              EventHandler<MouseEvent>                 pressedHandler;
+    private              EventHandler<MouseEvent>                 releasedHandler;
+    private              HashMap<String, Property>                settings;
 
 
     // ******************** Constructors **************************************
@@ -299,52 +301,15 @@ public class IosMultiButton extends Region {
 
     private void adjustStyle() {
         switch(getType()) {
-            case ADD:
-                pseudoClassStateChanged(CHECKBOX_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DELETE_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(ADD_PSEUDO_CLASS, true);
-                break;
-            case DELETE:
-                pseudoClassStateChanged(CHECKBOX_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(ADD_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DELETE_PSEUDO_CLASS, true);
-                break;
-            case CHECK_MARK:
-                pseudoClassStateChanged(DELETE_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(ADD_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, true);
-                break;
-            case DOT:
-                pseudoClassStateChanged(DELETE_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(ADD_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DOT_PSEUDO_CLASS, true);
-                break;
-            case SMALL_DOT:
-                pseudoClassStateChanged(DELETE_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(ADD_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DOT_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, true);
-                break;
-            case CHECKBOX:
+            case ADD       : pseudoClassStateChanged(ADD_PSEUDO_CLASS, true);break;
+            case DELETE    : pseudoClassStateChanged(DELETE_PSEUDO_CLASS, true);break;
+            case CHECK_MARK: pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, true);break;
+            case DOT       : pseudoClassStateChanged(DOT_PSEUDO_CLASS, true);break;
+            case SMALL_DOT : pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, true);break;
+            case INFO      : pseudoClassStateChanged(INFO_PSEUDO_CLASS, true);break;
+            case PLUS      : pseudoClassStateChanged(PLUS_PSEUDO_CLASS, true);break;
+            case CHECKBOX  :
             default:
-                pseudoClassStateChanged(ADD_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DELETE_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, false);
-                pseudoClassStateChanged(DOT_PSEUDO_CLASS, false);
                 pseudoClassStateChanged(CHECKBOX_PSEUDO_CLASS, true);
                 pseudoClassStateChanged(SELECTED_PSEUDO_CLASS, isSelected());
                 break;

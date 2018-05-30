@@ -54,8 +54,8 @@ public class Demo extends Application {
         entry2 = createIosEntry("Title 2", "Subtitle 2", createMultiButton(Type.ADD, IosColor.GREEN.color(), false), createSwitch(IosColor.PINK.color(), true), true, false);
         entry3 = createIosEntry("Title 3", "Subtitle 3", createMultiButton(Type.DELETE, IosColor.RED.color(), false), createSwitch(IosColor.GREEN.color(), false), false, false);
         entry4 = createIosEntry("Title 4", "Subtitle 4", createMultiButton(Type.DOT, IosColor.ORANGE.color(), false), createSwitch(IosColor.ORANGE.color(), true), false, true);
-        entry5 = createIosEntry("Title 5", "Subtitle 5", createMultiButton(Type.DOT, IosColor.TEAL_BLUE.color(), false), createMultiButton(Type.CHECKBOX, IosColor.GREEN.color(), false), false, false);
-        entry6 = createIosEntry("Title 6", "Subtitle 6", createMultiButton(Type.DOT, IosColor.ORANGE.color(), false), createMultiButton(Type.ADD, IosColor.GREEN.color(), false), false, false);
+        entry5 = createIosEntry("Title 5", "Subtitle 5", createMultiButton(Type.INFO, IosColor.BLUE.color(), false), createMultiButton(Type.CHECKBOX, IosColor.GREEN.color(), false), false, false);
+        entry6 = createIosEntry("Title 6", "Subtitle 6", createMultiButton(Type.PLUS, IosColor.ORANGE.color(), false), createMultiButton(Type.ADD, IosColor.GREEN.color(), false), false, false);
         entry7 = createIosEntry("Title 7", "Subtitle 7", null, createMultiButton(Type.DELETE, IosColor.GREEN.color(), false), false, false);
         entry8 = createIosEntry("Title 8", "Subtitle 8", createMultiButton(Type.DOT, IosColor.GREEN.color(), false), createMultiButton(Type.CHECK_MARK, IosColor.BLUE.color(), true), false, false);
 

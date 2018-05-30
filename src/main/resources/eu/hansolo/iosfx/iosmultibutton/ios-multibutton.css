@@ -82,6 +82,26 @@
     -fx-shape           : "M7,11a4,4 0 1,0 8,0a4,4 0 1,0 -8,0";
 }
 
+.ios-multi-button:info .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : transparent;
+}
+.ios-multi-button:info .icon {
+    -fx-background-color: -selected-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M11,28c-6.075,0 -11,-4.925 -11,-11c0,-6.075 4.925,-11 11,-11c6.075,0 11,4.925 11,11c0,6.075 -4.925,11 -11,11Zm0,-1c5.523,0 10,-4.477 10,-10c0,-5.523 -4.477,-10 -10,-10c-5.523,0 -10,4.477 -10,10c0,5.523 4.477,10 10,10Zm-2,-12.5l3,0l0,8l1,0l0,0.5l-4,0l0,-0.5l1,0l0,-7.5l-1,0l0,-0.5Zm1.75,-1.5c-0.69,0 -1.25,-0.56 -1.25,-1.25c0,-0.69 0.56,-1.25 1.25,-1.25c0.69,0 1.25,0.56 1.25,1.25c0,0.69 -0.56,1.25 -1.25,1.25Z";
+}
+
+.ios-multi-button:plus .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : transparent;
+}
+.ios-multi-button:plus .icon {
+    -fx-background-color: -selected-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M11,22c-6.075,0 -11,-4.925 -11,-11c0,-6.075 4.925,-11 11,-11c6.075,0 11,4.925 11,11c0,6.075 -4.925,11 -11,11Zm0,-1c5.523,0 10,-4.477 10,-10c0,-5.523 -4.477,-10 -10,-10c-5.523,0 -10,4.477 -10,10c0,5.523 4.477,10 10,10Zm-0.5,-10.5l0,-5l1,0l0,5l5,0l0,1l-5,0l0,5l-1,0l0,-5l-5,0l0,-1l5,0Z";
+}
+
 .ios-multi-button:checkmark .circle {
     -fx-stroke: transparent;
     -fx-fill  : transparent;
