@@ -77,7 +77,7 @@ public class Demo extends Application {
         entries.addAll(entry1, entry2, entry3, entry4, entry5, entry6, entry7, entry8, entry9);
 
         listView = new IosListView(entries);
-        listView.setPrefWidth(375);
+        listView.setPrefSize(375, 450);
         listView.setPlaceholder(new Label("No entries loaded"));
         listView.setCellFactory(p -> new IosEntryCell());
 
@@ -96,7 +96,7 @@ public class Demo extends Application {
 
     @Override public void start(Stage stage) {
         VBox pane = new VBox(10, listView, slider, balanceSlider);
-        pane.setPrefHeight(600);
+        pane.setPrefSize(400, 600);
         //pane.setPadding(new Insets(10));
 
         Scene scene = new Scene(pane);
