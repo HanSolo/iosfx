@@ -24,6 +24,7 @@ import javafx.beans.DefaultProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -104,6 +105,7 @@ public class IosPlusMinusButton extends Region {
         minus = new Button();
         minus.getStyleClass().add("minus-button");
         minus.setGraphic(minusSign);
+        minus.setPadding(new Insets(6, 15, 6, 15));
 
         Rectangle v        = new Rectangle(7, 0, 1.5, 15.5);
         Rectangle h        = new Rectangle(0, 7, 15.5, 1.5);
@@ -113,6 +115,7 @@ public class IosPlusMinusButton extends Region {
         plus  = new Button();
         plus.getStyleClass().add("plus-button");
         plus.setGraphic(plusSign);
+        plus.setPadding(new Insets(6, 15, 6, 15));
 
         buttonBar = new IosSegmentedButtonBar(minus, plus);
 

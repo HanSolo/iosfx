@@ -89,7 +89,7 @@ public class Demo extends Application {
         entries.addAll(entry1, entry2, entry3, entry4, entry5, entry6, entry7, entry8, entry9);
 
         listView = new IosListView(entries);
-        listView.setPrefSize(375, 450);
+        listView.setPrefSize(375, 600);
         listView.setPlaceholder(new Label("No entries loaded"));
         listView.setCellFactory(p -> new IosEntryCell());
 
