@@ -71,7 +71,7 @@ public class IosSegmentedButtonBar extends HBox {
             if (node.getStyleClass().contains("last")) { node.getStyleClass().remove("last"); }
 
             if (i == 0) { node.getStyleClass().add("first"); }
-            if (i > 1 && i == noOfChildren - 1) { node.getStyleClass().add("last"); }
+            if (i > 0 && i == noOfChildren - 1) { node.getStyleClass().add("last"); }
         }
     }
 
