@@ -24,6 +24,7 @@ import eu.hansolo.iosfx.ioslistview.IosListView;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButton;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButton.Type;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButtonBuilder;
+import eu.hansolo.iosfx.iosplusminusbutton.IosPlusMinusButton;
 import eu.hansolo.iosfx.iossegmentedbuttonbar.IosSegmentedButtonBar;
 import eu.hansolo.iosfx.iosslider.IosSlider;
 import eu.hansolo.iosfx.iosswitch.IosSwitch;
@@ -40,6 +41,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -59,6 +63,7 @@ public class Demo extends Application {
     private IosSlider                balanceSlider;
     private IosSegmentedButtonBar    buttonBar1;
     private IosSegmentedButtonBar    buttonBar2;
+    private IosPlusMinusButton       plusMinusButton;
 
 
     @Override public void init() {
@@ -119,21 +124,30 @@ public class Demo extends Application {
         buttonBar2 = new IosSegmentedButtonBar(toggleButton1, toggleButton2, toggleButton3, toggleButton4, toggleButton5);
         buttonBar2.setPadding(new Insets(5));
 
+        plusMinusButton = new IosPlusMinusButton();
+        plusMinusButton.setPadding(new Insets(5));
+
         registerListeners();
     }
 
     private void registerListeners() {
         entry1.addOnActionPressed(e -> System.out.println("entry1 pressed"));
         balanceSlider.valueProperty().addListener(o -> System.out.println(balanceSlider.getBalanceValue()));
+        plusMinusButton.addOnIosEvent(e -> {
+            switch(e.getType()) {
+                case INCREASE: System.out.println("Increase"); break;
+                case DECREASE: System.out.println("Decrease"); break;
+            }
+        });
     }
 
     @Override public void start(Stage stage) {
-        VBox pane = new VBox(10, listView, slider, balanceSlider, buttonBar1, buttonBar2);
-        pane.setPrefSize(400, 600);
+        VBox pane = new VBox(10, listView, slider, balanceSlider, buttonBar1, buttonBar2, plusMinusButton);
+        pane.setPrefSize(400, 650);
         //pane.setPadding(new Insets(10));
 
         Scene scene = new Scene(pane);
-        //scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("ios.css").toExternalForm());
 
         stage.setTitle("iOS FX");
         stage.setScene(scene);

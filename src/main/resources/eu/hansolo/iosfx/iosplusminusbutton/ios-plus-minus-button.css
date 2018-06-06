@@ -14,8 +14,21 @@
  * limitations under the License.
  */
 
-package eu.hansolo.iosfx.events;
+.ios-plus-minus-button {
 
-public enum IosEventType {
-    SELECTED, DESELECTED, DELETE_ENTRY, ADD_ENTRY, PRESSED, RELEASED, INCREASE, DECREASE
 }
+
+.ios-plus-minus-button .minus-button .minus-sign {
+    -fx-fill: rgb(0, 122, 255);
+}
+.ios-plus-minus-button .minus-button:pressed .minus-sign {
+    -fx-fill: white;
+}
+
+.ios-plus-minus-button .plus-button .plus-sign {
+    -fx-fill: rgb(0, 122, 255);
+}
+.ios-plus-minus-button .plus-button:pressed .plus-sign {
+    -fx-fill: white;
+}
+
