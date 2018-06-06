@@ -27,6 +27,7 @@ import javafx.scene.AccessibleRole;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -49,6 +50,7 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
     private StackPane               thumb;
     private StackPane               track;
     private StackPane               trackProgress;
+    private Line                    centerLine;
     private boolean                 trackClicked = false;
     private StringConverter<Number> stringConverterWrapper;
 
@@ -100,6 +102,9 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
         thumb.getStyleClass().setAll("thumb");
         thumb.setAccessibleRole(AccessibleRole.THUMB);
 
+        centerLine = new Line();
+        centerLine.getStyleClass().setAll("center-line");
+
         track = new StackPane();
         track.getStyleClass().setAll("track");
 
@@ -113,7 +118,7 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
             iosSlider = null;
         }
 
-        getChildren().setAll(track, trackProgress, thumb);
+        getChildren().setAll(track, centerLine, trackProgress, thumb);
         setShowTickMarks(getSkinnable().isShowTickMarks(), getSkinnable().isShowTickLabels());
 
         track.setOnMousePressed(me -> {
@@ -159,7 +164,8 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
         Slider slider = getSkinnable();
         if ("ORIENTATION".equals(PROPERTY)) {
             if (showTickMarks && tickLine != null) {
-                tickLine.setSide(slider.getOrientation() == Orientation.VERTICAL ? Side.RIGHT : (slider.getOrientation() == null) ? Side.RIGHT: Side.BOTTOM);
+                boolean isVertical = slider.getOrientation() == Orientation.VERTICAL;
+                tickLine.setSide(isVertical ? Side.RIGHT : (slider.getOrientation() == null) ? Side.RIGHT: Side.BOTTOM);
             }
             getSkinnable().requestLayout();
         } else if ("VALUE".equals(PROPERTY)) {
@@ -202,6 +208,7 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
                 IosSlider iosSlider = (IosSlider) slider;
                 boolean isBalance = iosSlider.getBalance();
                 trackProgress.setVisible(!isBalance);
+                centerLine.setVisible(isBalance);
                 if (isBalance) { iosSlider.setValue(iosSlider.getRange() * 0.5); }
                 iosSlider = null;
             }
@@ -288,7 +295,7 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
                 if (slider.getLabelFormatter() != null) {
                     tickLine.setTickLabelFormatter(stringConverterWrapper);
                 }
-                getChildren().setAll(tickLine, track, trackProgress, thumb);
+                getChildren().setAll(tickLine, track, centerLine, trackProgress, thumb);
             } else {
                 tickLine.setTickLabelsVisible(LABELS_VISIBLE);
                 tickLine.setTickMarkVisible(TICKS_VISIBLE);
@@ -296,7 +303,7 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
             }
         }
         else  {
-            getChildren().setAll(track, trackProgress, thumb);
+            getChildren().setAll(track, centerLine, trackProgress, thumb);
             //            tickLine = null;
         }
 
@@ -364,6 +371,12 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
             track.resizeRelocate((int)(trackStart - trackRadius), trackTop ,
                                  (int)(trackLength + trackRadius + trackRadius), trackHeight);
 
+            // layout center line
+            centerLine.setStartX(W * 0.5);
+            centerLine.setStartY(H * 0.5 - 3);
+            centerLine.setEndX(W * 0.5);
+            centerLine.setEndY(H * 0.5 + 3);
+
             // layout trackProgress
             trackProgress.resizeRelocate((int)(trackStart - trackRadius), trackTop ,
                                         (int)((trackLength * (value / range)) + trackRadius + trackRadius), trackHeight);
@@ -398,6 +411,13 @@ public class IosSliderSkin extends BehaviorSkinBase<Slider, SliderBehavior> {
                                  (int)(trackStart - trackRadius),
                                  trackWidth,
                                  (int)(trackLength + trackRadius + trackRadius));
+
+            // layout center line
+            // layout center line
+            centerLine.setStartX(W * 0.5 - 3);
+            centerLine.setStartY(H * 0.5);
+            centerLine.setEndX(W * 0.5 + 3);
+            centerLine.setEndY(H * 0.5);
 
             // layout trackProgress
             trackProgress.resizeRelocate(trackLeft,

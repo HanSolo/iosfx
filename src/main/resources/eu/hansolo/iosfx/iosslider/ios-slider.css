@@ -49,6 +49,15 @@
     -fx-border-insets   : 0 -3 0 -3;
 }
 
+.slider .center-line {
+    -fx-stroke    : transparent;
+    -fx-stroke-width: 1px;
+}
+.slider:balance .center-line,
+.slider:balance:vertical .center-line {
+    -fx-stroke: -track-fill;
+}
+
 .slider .track-progress {
     -fx-background-color : -track-progress-fill;
     -fx-background-insets: 0;
