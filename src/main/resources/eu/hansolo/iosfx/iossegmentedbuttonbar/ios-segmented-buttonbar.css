@@ -1,0 +1,65 @@
+/*
+ * Copyright (c) 2018 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ios-segmented-button-bar {
+    -blue: rgb(0, 122, 255);;
+}
+
+.ios-segmented-button-bar .button,
+.ios-segmented-button-bar .toggle-button {
+    -fx-text-fill        : rgb(0, 122, 255);
+    -fx-background-color : transparent;
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0;
+    -fx-padding          : 5 15 5 15;
+    -fx-border-color     : rgb(0, 122, 255) rgb(0, 122, 255) rgb(0, 122, 255) transparent;
+    -fx-border-width     : 1px;
+    -fx-border-radius    : 0;
+}
+
+.ios-segmented-button-bar .button.first,
+.ios-segmented-button-bar .toggle-button.first {
+    -fx-background-insets: 0, 1, 2 1 1 1;
+    -fx-background-radius: 3 0 0 3, 2 0 0 2, 2 0 0 2;
+    -fx-border-radius    : 3 0 0 3, 2 0 0 2, 2 0 0 2;
+    -fx-border-color     : rgb(0, 122, 255);
+}
+
+.ios-segmented-button-bar .button.last,
+.ios-segmented-button-bar .toggle-button.last {
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 2 2 0;
+    -fx-border-radius    : 0 3 3 0, 0 2 2 0, 0 2 2 0;
+    -fx-border-insets    : 0 0 0 -1;
+}
+
+.ios-segmented-button-bar .button:pressed,
+.ios-segmented-button-bar .toggle-button:selected {
+    -fx-background-color: rgb(0, 122, 255);
+    -fx-text-fill       : white;
+}
+
+.tool-bar {
+    -fx-base             : black;
+    -fx-font-size        : 13px;
+    -fx-background-color : transparent;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-effect           : null;
+}
+
+.tool-bar .spacer {
+    -fx-padding: 0 5.417em 0 0;
+}

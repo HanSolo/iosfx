@@ -24,15 +24,20 @@ import eu.hansolo.iosfx.ioslistview.IosListView;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButton;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButton.Type;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButtonBuilder;
+import eu.hansolo.iosfx.iossegmentedbuttonbar.IosSegmentedButtonBar;
 import eu.hansolo.iosfx.iosslider.IosSlider;
 import eu.hansolo.iosfx.iosswitch.IosSwitch;
 import eu.hansolo.iosfx.iosswitch.IosSwitchBuilder;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -52,13 +57,15 @@ public class Demo extends Application {
     private IosEntry                 entry9;
     private IosSlider                slider;
     private IosSlider                balanceSlider;
+    private IosSegmentedButtonBar    buttonBar1;
+    private IosSegmentedButtonBar    buttonBar2;
 
 
     @Override public void init() {
         entry1 = createIosEntry("Title 1", "Subtitle 1", createMultiButton(Type.SMALL_DOT, IosColor.PURPLE.color(), false), createSwitch(IosColor.PURPLE.color(), false), true, true);
         entry2 = createIosEntry("Title 2", "Subtitle 2", createMultiButton(Type.ADD, IosColor.GREEN.color(), false), createSwitch(IosColor.PINK.color(), true), true, false);
         entry3 = createIosEntry("Title 3", "Subtitle 3", createMultiButton(Type.DELETE, IosColor.RED.color(), false), createSwitch(IosColor.GREEN.color(), false), false, false);
-        entry4 = createIosEntry("Title 4", "Subtitle 4", createMultiButton(Type.DOT, IosColor.ORANGE.color(), false), createSwitch(IosColor.ORANGE.color(), true), false, true);
+        entry4 = createIosEntry("Title 4", "Subtitle 4", createMultiButton(Type.DOT, IosColor.ORANGE.color(), false), createMultiButton(Type.CHECKBOX, IosColor.GREEN.color(), true), false, true);
         entry5 = createIosEntry("Title 5", "Subtitle 5", createMultiButton(Type.INFO, IosColor.BLUE.color(), false), createMultiButton(Type.CHECKBOX, IosColor.GREEN.color(), false), false, false);
         entry6 = createIosEntry("Title 6", "Subtitle 6", createMultiButton(Type.PLUS, IosColor.ORANGE.color(), false), createMultiButton(Type.ADD, IosColor.GREEN.color(), false), false, false);
         entry7 = createIosEntry("Title 7", "Subtitle 7", null, createMultiButton(Type.DELETE, IosColor.GREEN.color(), false), false, false);
@@ -86,6 +93,32 @@ public class Demo extends Application {
         balanceSlider = new IosSlider();
         balanceSlider.setBalance(true);
 
+        Button button1 = new Button("Label");
+        Button button2 = new Button("Label");
+        Button button3 = new Button("Label");
+        Button button4 = new Button("Label");
+        Button button5 = new Button("Label");
+
+        buttonBar1 = new IosSegmentedButtonBar(button1, button2, button3, button4, button5);
+        buttonBar1.setPadding(new Insets(5));
+
+
+        ToggleButton toggleButton1 = new ToggleButton("Label");
+        ToggleButton toggleButton2 = new ToggleButton("Label");
+        ToggleButton toggleButton3 = new ToggleButton("Label");
+        ToggleButton toggleButton4 = new ToggleButton("Label");
+        ToggleButton toggleButton5 = new ToggleButton("Label");
+
+        ToggleGroup toggleGroup = new ToggleGroup();
+        toggleButton1.setToggleGroup(toggleGroup);
+        toggleButton2.setToggleGroup(toggleGroup);
+        toggleButton3.setToggleGroup(toggleGroup);
+        toggleButton4.setToggleGroup(toggleGroup);
+        toggleButton5.setToggleGroup(toggleGroup);
+
+        buttonBar2 = new IosSegmentedButtonBar(toggleButton1, toggleButton2, toggleButton3, toggleButton4, toggleButton5);
+        buttonBar2.setPadding(new Insets(5));
+
         registerListeners();
     }
 
@@ -95,7 +128,7 @@ public class Demo extends Application {
     }
 
     @Override public void start(Stage stage) {
-        VBox pane = new VBox(10, listView, slider, balanceSlider);
+        VBox pane = new VBox(10, listView, slider, balanceSlider, buttonBar1, buttonBar2);
         pane.setPrefSize(400, 600);
         //pane.setPadding(new Insets(10));
 

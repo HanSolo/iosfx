@@ -36,7 +36,7 @@
     -fx-background-radius: 1 1 1 1;
     -fx-padding          : 0.5px;
     -fx-border-color     : transparent -track-fill transparent -track-fill;
-    -fx-border           : 0 1 0 1;
+    /*-fx-border           : 0 1 0 1;*/
     -fx-border-width     : 1;
     -fx-border-insets    : -3 0 -3 0;
 
@@ -44,7 +44,7 @@
 .slider:balance:vertical .track {
     -fx-background-color: -track-fill;
     -fx-border-color    : transparent -track-fill transparent -track-fill;
-    -fx-border          : 1 0 1 0;
+    /*-fx-border          : 1 0 1 0;*/
     -fx-border-width    : 1;
     -fx-border-insets   : 0 -3 0 -3;
 }
