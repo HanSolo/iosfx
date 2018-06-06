@@ -24,6 +24,7 @@ import eu.hansolo.iosfx.ioslistview.IosListView;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButton;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButton.Type;
 import eu.hansolo.iosfx.iosmultibutton.IosMultiButtonBuilder;
+import eu.hansolo.iosfx.iosslider.IosSlider;
 import eu.hansolo.iosfx.iosswitch.IosSwitch;
 import eu.hansolo.iosfx.iosswitch.IosSwitchBuilder;
 import javafx.application.Application;
@@ -32,7 +33,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -49,6 +50,8 @@ public class Demo extends Application {
     private IosEntry                 entry7;
     private IosEntry                 entry8;
     private IosEntry                 entry9;
+    private IosSlider                slider;
+    private IosSlider                balanceSlider;
 
 
     @Override public void init() {
@@ -78,15 +81,21 @@ public class Demo extends Application {
         listView.setPlaceholder(new Label("No entries loaded"));
         listView.setCellFactory(p -> new IosEntryCell());
 
+        slider = new IosSlider();
+
+        balanceSlider = new IosSlider();
+        balanceSlider.setBalance(true);
+
         registerListeners();
     }
 
     private void registerListeners() {
         entry1.addOnActionPressed(e -> System.out.println("entry1 pressed"));
+        balanceSlider.valueProperty().addListener(o -> System.out.println(balanceSlider.getBalanceValue()));
     }
 
     @Override public void start(Stage stage) {
-        StackPane pane = new StackPane(listView);
+        VBox pane = new VBox(10, listView, slider, balanceSlider);
         pane.setPrefHeight(600);
         //pane.setPadding(new Insets(10));
 

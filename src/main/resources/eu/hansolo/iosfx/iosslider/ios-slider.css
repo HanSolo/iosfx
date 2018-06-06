@@ -1,0 +1,85 @@
+/*
+ * Copyright (c) 2018 by Gerrit Grunwald
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.slider {
+    -thumb-fill         : white;
+    -track-fill         : rgba(0, 0, 0, 0.3);
+    -track-progress-fill: rgb(0, 122, 255);
+}
+
+.slider .track {
+    -fx-background-color : -track-fill;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1 1 1 1;
+    -fx-padding          : 0.5px;
+}
+.slider:vertical .track {
+    -fx-background-color: -track-fill;
+}
+
+.slider:balance .track {
+    -fx-background-color : -track-fill;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1 1 1 1;
+    -fx-padding          : 0.5px;
+    -fx-border-color     : transparent -track-fill transparent -track-fill;
+    -fx-border           : 0 1 0 1;
+    -fx-border-width     : 1;
+    -fx-border-insets    : -3 0 -3 0;
+
+}
+.slider:balance:vertical .track {
+    -fx-background-color: -track-fill;
+    -fx-border-color    : transparent -track-fill transparent -track-fill;
+    -fx-border          : 1 0 1 0;
+    -fx-border-width    : 1;
+    -fx-border-insets   : 0 -3 0 -3;
+}
+
+.slider .track-progress {
+    -fx-background-color : -track-progress-fill;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1 1 1 1;
+    -fx-padding          : 0.5px;
+}
+.slider:vertical .track-progress {
+    -fx-background-color: -track-progress-fill;
+}
+
+.slider .axis {
+    -fx-tick-label-fill  : derive(-fx-text-background-color, 30%);
+    -fx-tick-length      : 5px;
+    -fx-minor-tick-length: 3px;
+    -fx-border-color     : null;
+}
+.slider .thumb {
+    -fx-padding          : 14px;
+    -fx-background-color : -thumb-fill;
+    -fx-background-insets: 0;
+    -fx-background-radius: 14px;
+
+    -fx-effect           : dropshadow(two-pass-box, rgba(0, 0, 0, 0.25),10.0,0.0,5.0);
+}
+.slider .thumb:hover {
+    -fx-background-color: -thumb-fill;
+}
+
+.slider:focused .thumb {
+    -fx-background-color: -thumb-fill;
+}
+.slider:pressed .thumb {
+    -fx-background-color: -thumb-fill;
+}
