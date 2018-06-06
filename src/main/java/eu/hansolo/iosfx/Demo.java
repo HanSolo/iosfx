@@ -17,6 +17,7 @@
 package eu.hansolo.iosfx;
 
 import eu.hansolo.iosfx.common.IosColor;
+import eu.hansolo.iosfx.events.IosEventType;
 import eu.hansolo.iosfx.iosentry.IosEntry;
 import eu.hansolo.iosfx.iosentry.IosEntryCell;
 import eu.hansolo.iosfx.ioslistview.IosListView;
@@ -47,6 +48,7 @@ public class Demo extends Application {
     private IosEntry                 entry6;
     private IosEntry                 entry7;
     private IosEntry                 entry8;
+    private IosEntry                 entry9;
 
 
     @Override public void init() {
@@ -58,11 +60,18 @@ public class Demo extends Application {
         entry6 = createIosEntry("Title 6", "Subtitle 6", createMultiButton(Type.PLUS, IosColor.ORANGE.color(), false), createMultiButton(Type.ADD, IosColor.GREEN.color(), false), false, false);
         entry7 = createIosEntry("Title 7", "Subtitle 7", null, createMultiButton(Type.DELETE, IosColor.GREEN.color(), false), false, false);
         entry8 = createIosEntry("Title 8", "Subtitle 8", createMultiButton(Type.DOT, IosColor.GREEN.color(), false), createMultiButton(Type.CHECK_MARK, IosColor.BLUE.color(), true), false, false);
+        entry9 = createIosEntry("Title 9", "Subtitle 9", null, createMultiButton(Type.FORWARD, Color.rgb(0, 0, 0, 0.2), true), false, false);
 
         entry1.setActionLabel("Press");
 
+        entry9.addOnIosEvent(e -> {
+            if (IosEventType.PRESSED == e.getType()) {
+                System.out.println("Move to next screen");
+            }
+        });
+
         entries = FXCollections.observableArrayList();
-        entries.addAll(entry1, entry2, entry3, entry4, entry5, entry6, entry7, entry8);
+        entries.addAll(entry1, entry2, entry3, entry4, entry5, entry6, entry7, entry8, entry9);
 
         listView = new IosListView(entries);
         listView.setPrefWidth(375);
@@ -78,6 +87,7 @@ public class Demo extends Application {
 
     @Override public void start(Stage stage) {
         StackPane pane = new StackPane(listView);
+        pane.setPrefHeight(600);
         //pane.setPadding(new Insets(10));
 
         Scene scene = new Scene(pane);

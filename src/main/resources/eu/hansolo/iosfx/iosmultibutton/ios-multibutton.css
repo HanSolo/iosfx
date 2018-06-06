@@ -118,3 +118,13 @@
     -fx-scale-shape     : false;
     -fx-shape           : "M13.753,3.867L11.633,3.868L11.278,14.122L7.743,14.12L7.743,16.24L13.402,16.245L13.753,3.867Z";
 }
+
+.ios-multi-button:forward .circle {
+    -fx-stroke: transparent;
+    -fx-fill  : transparent;
+}
+.ios-multi-button:forward .icon {
+    -fx-background-color: -selected-color;
+    -fx-scale-shape     : false;
+    -fx-shape           : "M1.333,13l6.667,-6.5l-6.667,-6.5l-1.333,1.3l5.333,5.2l-5.333,5.2l1.333,1.3Z";
+}

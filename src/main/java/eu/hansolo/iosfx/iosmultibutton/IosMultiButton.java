@@ -58,7 +58,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 @DefaultProperty("children")
 public class IosMultiButton extends Region {
-    public               enum                                     Type { CHECKBOX, ADD, DELETE, CHECK_MARK, DOT, SMALL_DOT, INFO, PLUS }
+    public               enum                                     Type { CHECKBOX, ADD, DELETE, CHECK_MARK, DOT, SMALL_DOT, INFO, PLUS, FORWARD }
     public  static final Color                                    DEFAULT_SELECTED_COLOR  = Color.rgb(0, 122, 255);
     private static final double                                   PREFERRED_WIDTH         = 22;
     private static final double                                   PREFERRED_HEIGHT        = 22;
@@ -79,6 +79,7 @@ public class IosMultiButton extends Region {
     private static final PseudoClass                              SMALL_DOT_PSEUDO_CLASS  = PseudoClass.getPseudoClass("smalldot");
     private static final PseudoClass                              INFO_PSEUDO_CLASS       = PseudoClass.getPseudoClass("info");
     private static final PseudoClass                              PLUS_PSEUDO_CLASS       = PseudoClass.getPseudoClass("plus");
+    private static final PseudoClass                              FORWARD_PSEUDO_CLASS    = PseudoClass.getPseudoClass("forward");
     private static final PseudoClass                              SELECTED_PSEUDO_CLASS   = PseudoClass.getPseudoClass("selected");
     private        final StyleableProperty<Color>                 selectedColor;
     private              double                                   size;
@@ -301,13 +302,14 @@ public class IosMultiButton extends Region {
 
     private void adjustStyle() {
         switch(getType()) {
-            case ADD       : pseudoClassStateChanged(ADD_PSEUDO_CLASS, true);break;
-            case DELETE    : pseudoClassStateChanged(DELETE_PSEUDO_CLASS, true);break;
-            case CHECK_MARK: pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, true);break;
-            case DOT       : pseudoClassStateChanged(DOT_PSEUDO_CLASS, true);break;
-            case SMALL_DOT : pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, true);break;
-            case INFO      : pseudoClassStateChanged(INFO_PSEUDO_CLASS, true);break;
-            case PLUS      : pseudoClassStateChanged(PLUS_PSEUDO_CLASS, true);break;
+            case ADD       : pseudoClassStateChanged(ADD_PSEUDO_CLASS, true); break;
+            case DELETE    : pseudoClassStateChanged(DELETE_PSEUDO_CLASS, true); break;
+            case CHECK_MARK: pseudoClassStateChanged(CHECK_MARK_PSEUDO_CLASS, true); break;
+            case DOT       : pseudoClassStateChanged(DOT_PSEUDO_CLASS, true); break;
+            case SMALL_DOT : pseudoClassStateChanged(SMALL_DOT_PSEUDO_CLASS, true); break;
+            case INFO      : pseudoClassStateChanged(INFO_PSEUDO_CLASS, true); break;
+            case PLUS      : pseudoClassStateChanged(PLUS_PSEUDO_CLASS, true); break;
+            case FORWARD   : pseudoClassStateChanged(FORWARD_PSEUDO_CLASS, true); break;
             case CHECKBOX  :
             default:
                 pseudoClassStateChanged(CHECKBOX_PSEUDO_CLASS, true);

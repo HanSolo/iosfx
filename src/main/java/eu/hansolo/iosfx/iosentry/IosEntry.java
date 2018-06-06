@@ -20,6 +20,8 @@ import eu.hansolo.iosfx.events.IosEvent;
 import eu.hansolo.iosfx.events.IosEventListener;
 import eu.hansolo.iosfx.events.IosEventType;
 import eu.hansolo.iosfx.fonts.Fonts;
+import eu.hansolo.iosfx.iosmultibutton.IosMultiButton;
+import eu.hansolo.iosfx.iosmultibutton.IosMultiButton.Type;
 import eu.hansolo.iosfx.tools.Helper;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -35,7 +37,6 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.CacheHint;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -64,6 +65,8 @@ public class IosEntry extends Region {
     private static final double                   MAXIMUM_HEIGHT   = 1024;
     private static final double                   BUTTON_WIDTH     = 82;
     private        final IosEvent                 DELETE_ENTRY_EVT = new IosEvent(IosEntry.this, IosEventType.DELETE_ENTRY);
+    private        final IosEvent                 PRESSED_EVT      = new IosEvent(IosEntry.this, IosEventType.PRESSED);
+    private        final IosEvent                 RELEASED_EVT     = new IosEvent(IosEntry.this, IosEventType.RELEASED);
     private              double                   size;
     private              double                   width;
     private              double                   height;
@@ -90,8 +93,10 @@ public class IosEntry extends Region {
 
     private              boolean                  preDelete;
 
+    private              boolean                  hasForward;
+
     private              Timeline                 timeline;
-    private              EventHandler<MouseEvent> draggedHandler;
+    private              EventHandler<MouseEvent> mouseHandler;
     private              double                   draggedStartX;
 
     private              List<IosEventListener> listeners;
@@ -111,8 +116,18 @@ public class IosEntry extends Region {
         _hasDelete     = true;
         _hasAction     = true;
         preDelete      = false;
+        hasForward     = false;
         timeline       = new Timeline();
-        draggedHandler = e -> {
+
+        if (null != rightNode) {
+            if (rightNode instanceof IosMultiButton) {
+                IosMultiButton mb = (IosMultiButton) rightNode;
+                hasForward = Type.FORWARD == mb.getType();
+                mb = null;
+            }
+        }
+
+        mouseHandler = e -> {
             final EventType<? extends MouseEvent> TYPE = e.getEventType();
             double  translateX = getTranslateX();
             boolean hasAction  = getHasAction();
@@ -120,6 +135,7 @@ public class IosEntry extends Region {
             double  x          = e.getSceneX();
 
             if (TYPE.equals(MouseEvent.MOUSE_PRESSED)) {
+                if (hasForward) { fireIosEvent(PRESSED_EVT); }
                 draggedStartX = x;
             } else if (TYPE.equals(MouseEvent.MOUSE_DRAGGED)) {
                 double delta = (draggedStartX - x) * -1;
@@ -156,6 +172,8 @@ public class IosEntry extends Region {
                 if (preDelete) {
                     fireIosEvent(DELETE_ENTRY_EVT);
                     return;
+                } else if (hasForward) {
+                    fireIosEvent(RELEASED_EVT);
                 } else if (Double.compare(x, draggedStartX) == 0 ||
                     hasAction && hasDelete && Double.compare(translateX, -2 * BUTTON_WIDTH) == 0 ||
                     (hasAction || hasDelete) && Double.compare(translateX, -BUTTON_WIDTH) == 0) {
@@ -239,9 +257,9 @@ public class IosEntry extends Region {
     private void registerListeners() {
         widthProperty().addListener(o -> resize());
         heightProperty().addListener(o -> resize());
-        addEventHandler(MouseEvent.MOUSE_PRESSED, draggedHandler);
-        addEventHandler(MouseEvent.MOUSE_DRAGGED, draggedHandler);
-        addEventHandler(MouseEvent.MOUSE_RELEASED, draggedHandler);
+        addEventHandler(MouseEvent.MOUSE_PRESSED, mouseHandler);
+        addEventHandler(MouseEvent.MOUSE_DRAGGED, mouseHandler);
+        addEventHandler(MouseEvent.MOUSE_RELEASED, mouseHandler);
         delete.setOnMousePressed(e -> fireIosEvent(DELETE_ENTRY_EVT));
     }
 
